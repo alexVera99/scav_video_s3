@@ -50,7 +50,7 @@ def convert_video_to_vp9(filename_path: pathlib.Path,
     """
     if output_filename == "":
         video_name = filename_path.name.split(".")[0]
-        output_filename = f"{video_name}_VP8"
+        output_filename = f"{video_name}_VP9"
 
     output_filename_path = ut.rename_from_path(filename_path,
                                                output_filename,
@@ -76,15 +76,22 @@ def convert_video_to_vp9(filename_path: pathlib.Path,
     _, stderr = ut.exec_in_shell_wrapper(cmd_pass_1)
     ut.check_shell_stderr(stderr,
                           f"Could not convert the video {filename_path} "
-                          f"(First Pass)")
+                          f"to VP9 (First Pass)")
     logging.info("First pass finished")
 
     logging.info("Running the second pass")
     _, stderr = ut.exec_in_shell_wrapper(cmd_pass_2)
     ut.check_shell_stderr(stderr,
                           f"Could not convert the video {filename_path} "
-                          f"(Second Pass)")
+                          f"to VP9 (Second Pass)")
     logging.info("Second pass finished")
+
+    logging.info("Removing second ffmpeg log files")
+    cmd_remove = ["rm", "-rf", "ffmpeg2pass-0.log"]
+
+    stdout, stderr = ut.exec_in_shell_wrapper(cmd_remove)
+    ut.check_shell_stderr(stderr,
+                          f"Couldn't remove log files.")
 
     return output_filename_path
 
