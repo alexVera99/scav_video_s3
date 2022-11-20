@@ -1,4 +1,5 @@
 import pathlib
+import logging
 
 import utils as ut
 
@@ -71,15 +72,53 @@ def convert_video_to_vp9(filename_path: pathlib.Path,
                   "-c:a", "libopus",
                   output_filename_path]
 
+    logging.info("Running the first pass")
     _, stderr = ut.exec_in_shell_wrapper(cmd_pass_1)
     ut.check_shell_stderr(stderr,
                           f"Could not convert the video {filename_path} "
                           f"(First Pass)")
+    logging.info("First pass finished")
 
+    logging.info("Running the second pass")
     _, stderr = ut.exec_in_shell_wrapper(cmd_pass_2)
     ut.check_shell_stderr(stderr,
                           f"Could not convert the video {filename_path} "
                           f"(Second Pass)")
+    logging.info("Second pass finished")
+
+    return output_filename_path
+
+
+def convert_video_to_h265(filename_path: pathlib.Path,
+                          output_filename: str = ""):
+    """
+    Convert the video to H265 codec. Inspired in \
+    https://www.maketecheasier.com/encode-h265-video-using-ffmpeg/.
+
+    :param filename_path: video filename path
+    :param output_filename: output filename
+    :return: created video filename
+    """
+    if output_filename == "":
+        video_name = filename_path.name.split(".")[0]
+        output_filename = f"{video_name}_H265"
+
+    output_filename_path = ut.rename_from_path(filename_path,
+                                               output_filename,
+                                               "mp4")
+    cmd = ["ffmpeg", "-i",
+           filename_path,
+           "-c:a", "copy",
+           "-c:v", "libx265",
+           output_filename_path]
+
+    logging.info(f"Converting {filename_path} to H265")
+    _, stderr = ut.exec_in_shell_wrapper(cmd)
+    logging.info(f"{filename_path} converted to H265")
+
+    ut.check_shell_stderr(stderr,
+                          f"Could not convert the video {filename_path}"
+                          "to H265.")
 
     return output_filename_path
 
@@ -90,14 +129,20 @@ def main():
 
     :return: no return
     """
+    logging.basicConfig(level=logging.INFO)
+
     filename = pathlib.Path("../data/bbb.mp4")
 
-    #filename_vp8 = convert_video_to_vp8(filename)
+    filename_vp8 = convert_video_to_vp8(filename)
 
-    #print(filename_vp8)
+    print(filename_vp8)
 
     filename_vp9 = convert_video_to_vp9(filename)
     print(filename_vp9)
+
+    filename_h265 = convert_video_to_h265(filename)
+    print(filename_h265)
+
 
 if __name__ == "__main__":
     main()
