@@ -3,3 +3,4 @@ pydocstyle
 pycodestyle
 mypy
 pytest
+pysimplegui
