@@ -66,7 +66,8 @@ class ConvertView:
         col_layout = [
             [sGui.Titlebar(title="Codec converter",
                            font=(font, font_size),
-                           background_color=self.title_bg_color)],
+                           background_color=self.title_bg_color,
+                           icon="../media/icon_small.png")],
             [sGui.Text(text="Please, choose a codec",
                        font=(font, font_size),
                        background_color=self.bg_color),
@@ -126,7 +127,7 @@ class ConvertView:
     def setup_view(self):
         self.window = sGui.Window(title="Video codec converter",
                                   layout=self.layout,
-                                  background_color=self.bg_color)
+                                  background_color=self.bg_color,)
 
     def kill_window(self):
         self.window.close()
