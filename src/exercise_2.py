@@ -3,7 +3,7 @@ import pathlib
 import PySimpleGUI as sGui
 from enum import Enum
 
-import exercise_1 as ex_1
+import converters as conv
 
 
 class Codec(Enum):
@@ -18,10 +18,10 @@ class Codec(Enum):
 class ConvertModel:
     def __init__(self):
         self.convert_functions = {
-            Codec.H265.value: ex_1.convert_video_to_h265,
-            Codec.AV1.value: ex_1.convert_video_to_av1,
-            Codec.VP8.value: ex_1.convert_video_to_vp8,
-            Codec.VP9.value: ex_1.convert_video_to_vp9,
+            Codec.H265.value: conv.convert_video_to_h265,
+            Codec.AV1.value: conv.convert_video_to_av1,
+            Codec.VP8.value: conv.convert_video_to_vp8,
+            Codec.VP9.value: conv.convert_video_to_vp9,
         }
 
     def convert(self, filename, codec: Codec):
