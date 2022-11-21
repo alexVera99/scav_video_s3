@@ -129,6 +129,39 @@ def convert_video_to_h265(filename_path: pathlib.Path,
 
     return output_filename_path
 
+def convert_video_to_av1(filename_path: pathlib.Path,
+                          output_filename: str = ""):
+    """
+    Convert the video to AV1 codec using the libaom library. Inspired in \
+    https://trac.ffmpeg.org/wiki/Encode/AV1#SVT-AV1.
+
+    :param filename_path: video filename path
+    :param output_filename: output filename
+    :return: created video filename
+    """
+    if output_filename == "":
+        video_name = filename_path.name.split(".")[0]
+        output_filename = f"{video_name}_AV1"
+
+    output_filename_path = ut.rename_from_path(filename_path,
+                                               output_filename,
+                                               "mkv")
+    cmd = ["ffmpeg", "-y",
+           "-i", filename_path,
+           "-c:v", "libaom-av1",
+           "-crf", "30",
+           output_filename_path]
+
+    logging.info(f"Converting {filename_path} to AV1")
+    _, stderr = ut.exec_in_shell_wrapper(cmd)
+    logging.info(f"{filename_path} converted to AV1")
+
+    ut.check_shell_stderr(stderr,
+                          f"Could not convert the video {filename_path}"
+                          "to AV1.")
+
+    return output_filename_path
+
 
 def main():
     """
@@ -138,17 +171,21 @@ def main():
     """
     logging.basicConfig(level=logging.INFO)
 
-    filename = pathlib.Path("../data/bbb.mp4")
+    filenames = [pathlib.Path("../data/bbb_short_160_120.mp4"),
+                 pathlib.Path("../data/bbb_short_360_240.mp4"),
+                 pathlib.Path("../data/bbb_short_640_480.mp4"),
+                 pathlib.Path("../data/bbb_short_1280_720.mp4")]
 
-    filename_vp8 = convert_video_to_vp8(filename)
+    for _f in filenames:
+        filename_vp8 = convert_video_to_vp8(_f)
+        filename_vp9 = convert_video_to_vp9(_f)
+        filename_h265 = convert_video_to_h265(_f)
+        filename_av1 = convert_video_to_av1(_f)
 
-    print(filename_vp8)
-
-    filename_vp9 = convert_video_to_vp9(filename)
-    print(filename_vp9)
-
-    filename_h265 = convert_video_to_h265(filename)
-    print(filename_h265)
+        print(filename_vp8)
+        print(filename_vp9)
+        print(filename_h265)
+        print(filename_av1)
 
 
 if __name__ == "__main__":
