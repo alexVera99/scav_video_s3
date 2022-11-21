@@ -113,8 +113,8 @@ def convert_video_to_h265(filename_path: pathlib.Path,
     output_filename_path = ut.rename_from_path(filename_path,
                                                output_filename,
                                                "mp4")
-    cmd = ["ffmpeg", "-i",
-           filename_path,
+    cmd = ["ffmpeg", "-y",
+           "-i", filename_path,
            "-c:a", "copy",
            "-c:v", "libx265",
            output_filename_path]
@@ -128,6 +128,7 @@ def convert_video_to_h265(filename_path: pathlib.Path,
                           "to H265.")
 
     return output_filename_path
+
 
 def convert_video_to_av1(filename_path: pathlib.Path,
                           output_filename: str = ""):
