@@ -50,7 +50,7 @@ def check_shell_stderr(stderr,
 
 def rename_from_path(filename_path: pathlib.Path,
                      new_filename: str,
-                     new_extension: str = None) -> pathlib.Path:
+                     new_extension: str = "") -> pathlib.Path:
     """
     Rename file name.
 
@@ -61,7 +61,7 @@ def rename_from_path(filename_path: pathlib.Path,
     """
     parent_path = filename_path.parent.resolve()
 
-    if new_extension is None:
+    if new_extension == "":
         new_extension = filename_path.name.split(".")[1]
 
     return parent_path / f"{new_filename}.{new_extension}"
