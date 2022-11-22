@@ -5,13 +5,14 @@ import logging
 import utils as ut
 
 
-def mosaic_4_videos(filename_1: pathlib.Path,
-                    filename_2: pathlib.Path,
-                    filename_3: pathlib.Path,
-                    filename_4: pathlib.Path,
-                    output_filename: pathlib.Path):
+def create_mosaic_4_videos(filename_1: pathlib.Path,
+                           filename_2: pathlib.Path,
+                           filename_3: pathlib.Path,
+                           filename_4: pathlib.Path,
+                           output_filename: pathlib.Path):
     """
-    Create a mosaic of 4 videos
+    Create a mosaic of 4 videos. Inspired by \
+    https://stackoverflow.com/questions/36268431/video-grid-with-vstack-and-hstack.
 
     :param filename_1: video filename of any codec
     :param filename_2: video filename of any codec
@@ -43,7 +44,8 @@ def mosaic_4_videos(filename_1: pathlib.Path,
 
 def main():
     """
-    Create a mosaic of 4 videos of different codecs.
+    Create a mosaic of 4 videos of different codecs for all the \
+    following resolutions: 160x120, 360x240, 480p and 720p.
 
     :return: no return.
     """
@@ -60,7 +62,7 @@ def main():
         f1, f2, f3, f4 = [pathlib.Path(f) for f in filenames]
 
         output_filename = f1.parent / f"mosaic_{_n}.mp4"
-        mosaic_4_videos(f1, f2, f3, f4, output_filename)
+        create_mosaic_4_videos(f1, f2, f3, f4, output_filename)
 
 
 if __name__ == "__main__":
