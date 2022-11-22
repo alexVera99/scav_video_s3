@@ -14,7 +14,6 @@ def convert_video_to_vp8(filename_path: pathlib.Path,
     :param output_filename: output filename
     :return: created video filename
     """
-
     if output_filename == "":
         video_name = filename_path.name.split(".")[0]
         output_filename = f"{video_name}_VP8"

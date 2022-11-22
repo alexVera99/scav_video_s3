@@ -17,7 +17,9 @@ class Codec(Enum):
 
 class ConvertModel:
     """Map the Codec to its conversion function."""
+
     def __init__(self):
+        """Initialize ConvertModel."""
         self.convert_functions = {
             Codec.H265.value: conv.convert_video_to_h265,
             Codec.AV1.value: conv.convert_video_to_av1,
@@ -40,7 +42,13 @@ class ConvertModel:
 
 class ConvertController:
     """Control actions from model and ui changes from viewer."""
+
     def __init__(self, viewer):
+        """
+        Control actions from model and ui changes viewer.
+
+        :param viewer: UI implementation based on pysimplegui.
+        """
         self.viewer = viewer
         self.model = ConvertModel()
 
@@ -80,7 +88,14 @@ class ConvertController:
 
 class ConvertView:
     """Implement the UI using PySimpleGUI."""
+
     def __init__(self, font, font_size):
+        """
+        UI for Convert video.
+
+        :param font: font to use in the UI
+        :param font_size: size of the font to use in the UI
+        """
         self.button_color = "gray"
         self.bg_color = "#3C3F41"
         self.title_bg_color = "gray"
