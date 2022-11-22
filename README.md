@@ -3,6 +3,7 @@ Here you can find the solution for S3 exercises from Audio and Video
 encoding systems.
 
 ## Exercise 1
+## Exercise 1.1
 In exercise_1.py, we were asked to convert 4 videos to 4 
 codecs. The 4 input videos were the same video of BBB.mp4
 with the following resolutions:
@@ -19,13 +20,20 @@ The codecs were:
 
 To make the conversions, we used `ffmpeg`.
 
+## Exercise 1.2
+In exercise_1_2.py, we create a mosaic with the 4 codecs keeping the 
+same resolution. So, we end up with a video like this.
+<div align="center">
+    <img src="readme_images/mosaic_720p_demo.png" title="App">
+</div>
+
 ## Exercise 2
 In exercise_2.py, we have build a video codec converter
 desktop application. It converts any given idea to any
 of the 4 codecs mentioned above.
 
 <div align="center">
-<img src="readme_images/app.png" title="App">
+    <img src="readme_images/app.png" title="App">
 </div>
 
 # Dependencies
