@@ -262,8 +262,7 @@ def main():
             codec = values["-CODEC-"]
             filename = pathlib.Path(values["-FILENAME-"])
 
-            viewer.window.perform_long_operation(
-                                                 lambda:
+            viewer.window.perform_long_operation(lambda:
                                                  convert_controller.convert(
                                                      filename,
                                                      codec),
