@@ -1,3 +1,4 @@
+"""Script to convert videos to the 4 Codecs: VP8, VP9, H265 and AV1."""
 import pathlib
 import logging
 
@@ -6,7 +7,7 @@ import converters as conv
 
 def main():
     """
-    Testing the above functions.
+    Convert the given videos to the 4 video codecs.
 
     :return: no return
     """

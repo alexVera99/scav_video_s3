@@ -1,3 +1,4 @@
+"""Create a mosaic with 4 videos."""
 import glob
 import pathlib
 import logging
@@ -36,10 +37,10 @@ def create_mosaic_4_videos(filename_1: pathlib.Path,
 
     _, stderr = ut.exec_in_shell_wrapper(cmd)
 
-    logging.info(f"The mosaic has been created at \n{output_filename}")
+    logging.info("The mosaic has been created at \n%s", output_filename)
 
     ut.check_shell_stderr(stderr,
-                          f"Could not obtain the mosaic")
+                          "Could not obtain the mosaic")
 
 
 def main():
@@ -59,10 +60,10 @@ def main():
     for _n, _p_r in patterns_reso.items():
         filenames = glob.glob(_p_r)
         filenames.sort()
-        f1, f2, f3, f4 = [pathlib.Path(f) for f in filenames]
+        f_1, f_2, f_3, f_4 = [pathlib.Path(f) for f in filenames]
 
-        output_filename = f1.parent / f"mosaic_{_n}.mp4"
-        create_mosaic_4_videos(f1, f2, f3, f4, output_filename)
+        output_filename = f_1.parent / f"mosaic_{_n}.mp4"
+        create_mosaic_4_videos(f_1, f_2, f_3, f_4, output_filename)
 
 
 if __name__ == "__main__":

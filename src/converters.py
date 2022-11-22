@@ -1,3 +1,4 @@
+"""Video codec converter functions."""
 import pathlib
 import logging
 
@@ -89,9 +90,9 @@ def convert_video_to_vp9(filename_path: pathlib.Path,
     logging.info("Removing second ffmpeg log files")
     cmd_remove = ["rm", "-rf", "ffmpeg2pass-0.log"]
 
-    stdout, stderr = ut.exec_in_shell_wrapper(cmd_remove)
+    _, stderr = ut.exec_in_shell_wrapper(cmd_remove)
     ut.check_shell_stderr(stderr,
-                          f"Couldn't remove log files.")
+                          "Couldn't remove log files.")
 
     return output_filename_path
 
@@ -119,9 +120,9 @@ def convert_video_to_h265(filename_path: pathlib.Path,
            "-c:v", "libx265",
            output_filename_path]
 
-    logging.info(f"Converting {filename_path} to H265")
+    logging.info("Converting %s to H265", filename_path)
     _, stderr = ut.exec_in_shell_wrapper(cmd)
-    logging.info(f"{filename_path} converted to H265")
+    logging.info("%s converted to H265", filename_path)
 
     ut.check_shell_stderr(stderr,
                           f"Could not convert the video {filename_path}"
@@ -131,7 +132,7 @@ def convert_video_to_h265(filename_path: pathlib.Path,
 
 
 def convert_video_to_av1(filename_path: pathlib.Path,
-                          output_filename: str = ""):
+                         output_filename: str = ""):
     """
     Convert the video to AV1 codec using the libaom library. Inspired in \
     https://trac.ffmpeg.org/wiki/Encode/AV1#SVT-AV1.
@@ -153,9 +154,9 @@ def convert_video_to_av1(filename_path: pathlib.Path,
            "-crf", "30",
            output_filename_path]
 
-    logging.info(f"Converting {filename_path} to AV1")
+    logging.info("Converting %s to AV1", filename_path)
     _, stderr = ut.exec_in_shell_wrapper(cmd)
-    logging.info(f"{filename_path} converted to AV1")
+    logging.info("%s converted to AV1", filename_path)
 
     ut.check_shell_stderr(stderr,
                           f"Could not convert the video {filename_path}"
