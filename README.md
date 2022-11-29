@@ -29,7 +29,7 @@ same resolution. So, we end up with a video like this.
 
 ## Exercise 2
 In exercise_2.py, we have build a video codec converter
-desktop application. It converts any given idea to any
+desktop application. It converts any given video to any
 of the 4 codecs mentioned above.
 
 <div align="center">
